@@ -64,6 +64,9 @@ a post-quantum KEM with an elliptic curve Diffie-Hellman (ECDHE).
 
 # Introduction
 
+ML-KEM is a key encapsulation method (KEM) defined in the {{FIPS203}}. It is designed to
+withstand cryptanalytic attacks from quantum computers.
+
 The {{hybrid}} document defines a framework for combining traditional key exchanges with next-generation key
 exchange in TLS 1.3. The goal of this approach is to provide security against both classical and quantum
 adversaries while maintaining compatibility with existing infrastructure and protocols.
@@ -71,7 +74,7 @@ adversaries while maintaining compatibility with existing infrastructure and pro
 This document applies the framework to ML-KEM, a key encapsulation mechanism defined in {{NIST-FIPS-203}},
 and specifies code points for the hybrid groups.
 
-## Motivation
+# Motivation
 
 This document introduces three new supported groups for hybrid post-quantum key agreements in TLS 1.3: the X25519MLKEM768,
 SecP256r1MLKEM768, and SecP384r1MLKEM1024 which combine ML-KEM with ECDH in the manner of {{hybrid}}.
@@ -118,9 +121,9 @@ defined  in {{Section 4.2.8.2 of !RFC8446}}. The size of the client share is 124
 
 When the SecP384r1MLKEM1024 group is negotiated, the client's key_exchange value
 is the concatenation of the secp384r1 ephemeral share and the ML-KEM-1024
-encapsulation key. The ECDH share is the serialized value of the uncompressed ECDH point
-representation as defined in {{Section 4.2.8.2 of !RFC8446}}. The size of the
-client share is 1665 bytes (97 bytes for the secp384r1 and the 1568 for the ML-KEM).
+encapsulation key. The ECDH share is serialized value of the uncompressed ECDH point
+represenation as defined in {{Section 4.2.8.2 of !RFC8446}}. The size of the
+client share is 1665 bytes (97 bytes for the secp384r1 part and 1568 for ML-KEM).
 
 ## Server share
 
@@ -209,27 +212,6 @@ This document requests/registers three new entries to the TLS Supported Groups r
 to the procedures in {{Section 6 of tlsiana}}. These identifiers are to be used with the final,
 ratified by NIST, version of ML-KEM which is specified in {{NIST-FIPS-203}}.
 
-## SecP256r1MLKEM768
-
- Value:
- : 4587 (0x11EB)
-
- Description:
- : SecP256r1MLKEM768
-
- DTLS-OK:
- : Y
-
- Recommended:
- : N
-
- Reference:
- : This document
-
- Comment:
- : Combining secp256r1 ECDH with ML-KEM-768
- {: spacing="compact"}
-
 ## X25519MLKEM768
 
  Value:
@@ -250,6 +232,27 @@ ratified by NIST, version of ML-KEM which is specified in {{NIST-FIPS-203}}.
  Comment:
  : Combining X25519 ECDH with ML-KEM-768
 {: spacing="compact"}
+
+## SecP256r1MLKEM768
+
+ Value:
+ : 4587 (0x11EB)
+
+ Description:
+ : SecP256r1MLKEM768
+
+ DTLS-OK:
+ : Y
+
+ Recommended:
+ : N
+
+ Reference:
+ : This document
+
+ Comment:
+ : Combining secp256r1 ECDH with ML-KEM-768
+ {: spacing="compact"}
 
 ## SecP384r1MLKEM1024
 
